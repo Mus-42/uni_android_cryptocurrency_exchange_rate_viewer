@@ -1,5 +1,6 @@
 package knu.mus.cryptocurrency_exchange_rate_viewer.data
 
+import android.util.Log
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -16,19 +17,27 @@ class ExchangeRatesDataSource {
 
     private var exchangeRatesService = retrofit.create(ExchangeRatesService::class.java)
 
-    fun getExchangeRate(resultCallback: (ExchangeRatesList?) -> Unit){
+    fun getExchangeRates(resultCallback: (ExchangeRatesList?) -> Unit){
         val call = exchangeRatesService.getExchangeRatesList()
 
         // TODO handle errors in some other way
         call?.enqueue(object: Callback<ExchangeRatesList?>{
             override fun onResponse(call: Call<ExchangeRatesList?>, response: Response<ExchangeRatesList?>) {
-                resultCallback(response.body())
+                val exchangeRates = response.body()
+                Log.d(TAG, "fetched data: ${exchangeRates?.data?.size}")
+                resultCallback(exchangeRates)
             }
 
             override fun onFailure(call: Call<ExchangeRatesList?>, t: Throwable) {
+                Log.d(TAG, "failed to fetch data")
                 resultCallback(null)
             }
         })
+    }
+
+
+    companion object {
+        const val TAG = "EXRTData";
     }
 }
 

@@ -14,7 +14,7 @@ data class Coin(
     @SerializedName("CoinInfo")
     val info: CoinInfo,
     @SerializedName("RAW")
-    val rawExchangeRates: RawExchangeRates,
+    val rawExchangeRates: RawExchangeRates?,
 )
 
 data class CoinInfo(
@@ -29,10 +29,12 @@ data class CoinInfo(
 
 data class RawExchangeRates(
     // TODO add other if needed
-  @SerializedName("HIGH24HOUR")
-  var high24Hour: Float,
-  @SerializedName("LOW24HOUR")
-  var low24Hour: Float,
+    @SerializedName("PRICE")
+    var price: Float,
+    @SerializedName("HIGH24HOUR")
+    var high24Hour: Float,
+    @SerializedName("LOW24HOUR")
+    var low24Hour: Float,
 )
 
 interface ExchangeRatesService {
