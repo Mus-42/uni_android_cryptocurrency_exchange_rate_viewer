@@ -53,10 +53,17 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:3.0.0")
 
     implementation("com.google.dagger:hilt-android:2.57.1")
+    implementation(libs.androidx.fragment)
     kapt("com.google.dagger:hilt-android-compiler:2.57.1")
 
     implementation ("androidx.room:room-ktx:2.8.4")
     kapt("androidx.room:room-compiler:2.8.4")
+
+    val fragment_version = "1.8.9"
+
+    implementation("androidx.fragment:fragment-ktx:${fragment_version}")
+
+    implementation("com.squareup.picasso:picasso:2.8")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
