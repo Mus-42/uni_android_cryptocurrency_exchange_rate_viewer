@@ -4,10 +4,11 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.MutableLiveData
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import knu.mus.cryptocurrency_exchange_rate_viewer.data.ExchangeRatesDataSource
 
-// TODO use hilt
-
+// TODO move to domain
 data class ExchangeRate(
     val shortName: String,
     val fullName: String,
@@ -17,7 +18,10 @@ data class ExchangeRate(
     var low24Hour: Float,
 )
 
-class ExchangeRatesViewModel : ViewModel() {
+@HiltViewModel
+class ExchangeRatesViewModel @Inject constructor(
+
+) : ViewModel() {
     // TODO cache in db
     private val dataSource: ExchangeRatesDataSource = ExchangeRatesDataSource()
 
@@ -30,7 +34,6 @@ class ExchangeRatesViewModel : ViewModel() {
             Log.d(TAG, "getExchangeRates -> ${it?.data?.size}")
 
             _exchangeRates.value = it?.data?.mapNotNull{ coin ->
-                
                 if (coin.rawExchangeRates == null)
                     null
                 else ExchangeRate(

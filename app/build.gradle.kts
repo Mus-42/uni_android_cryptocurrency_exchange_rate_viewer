@@ -2,8 +2,9 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
 
-    id("kotlin-kapt")
-    id("com.google.dagger.hilt.android") version "2.57.1" apply false
+    //id("kotlin-kapt")
+    id("com.google.devtools.ksp")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -38,6 +39,9 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -48,22 +52,17 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.recyclerview)
     implementation(libs.androidx.cardview)
-
-    implementation("com.squareup.retrofit2:retrofit:3.0.0")
-    implementation("com.squareup.retrofit2:converter-gson:3.0.0")
-
-    implementation("com.google.dagger:hilt-android:2.57.1")
     implementation(libs.androidx.fragment)
-    kapt("com.google.dagger:hilt-android-compiler:2.57.1")
 
-    implementation ("androidx.room:room-ktx:2.8.4")
-    kapt("androidx.room:room-compiler:2.8.4")
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.converter.gson)
+    implementation(libs.picasso)
 
-    val fragment_version = "1.8.9"
+    implementation(libs.hilt)
+    ksp(libs.hilt.compiler)
 
-    implementation("androidx.fragment:fragment-ktx:${fragment_version}")
-
-    implementation("com.squareup.picasso:picasso:2.8")
+    implementation (libs.room)
+    ksp(libs.room.compiler)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
