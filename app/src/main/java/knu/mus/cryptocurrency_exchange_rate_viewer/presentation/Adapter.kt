@@ -9,9 +9,11 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.timepicker.TimeFormat
 import com.squareup.picasso.Picasso
 import knu.mus.cryptocurrency_exchange_rate_viewer.R
 import knu.mus.cryptocurrency_exchange_rate_viewer.domain.CoinItem
+import java.text.DateFormat
 
 class Adapter() :
     ListAdapter<CoinItem, Adapter.ViewHolder>(CoinDiffUtil()) {
@@ -49,10 +51,15 @@ class Adapter() :
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
         val coinItem = getItem(position)
+
+        val df = DateFormat.getTimeInstance()
+        val lastUpdate = df.format(java.util.Date(coinItem.lastUpdate * 1000))
+
+
         Picasso.get().load("https://www.cryptocompare.com${coinItem.imageUrl}").into(viewHolder.image)
         viewHolder.cur.text = coinItem.shortName
         viewHolder.exchangeRate.text = coinItem.price.toString()
-        viewHolder.date.text = coinItem.lastUpdate.toString()
+        viewHolder.date.text = lastUpdate.toString()
         viewHolder.cardView.setOnClickListener {
             Log.d(TAG, coinItem.shortName)
             itemsInteractionListener?.onClick(coinItem)

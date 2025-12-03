@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import knu.mus.cryptocurrency_exchange_rate_viewer.R
 import knu.mus.cryptocurrency_exchange_rate_viewer.databinding.Fragment1Binding
 import knu.mus.cryptocurrency_exchange_rate_viewer.databinding.Fragment2Binding
+import java.text.DateFormat
+
 class Fragment2 : Fragment() {
 
     private var _binding: Fragment2Binding? = null
@@ -33,10 +35,14 @@ class Fragment2 : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        val df = DateFormat.getTimeInstance()
+        val lastUpdate = df.format(java.util.Date( requireArguments().getLong("date") * 1000))
+
         binding.textViewName.text = arguments?.getString("name")
         binding.textViewPrice.text = arguments?.getFloat("price").toString()
         binding.textViewMin.text = arguments?.getFloat("low").toString()
         binding.textViewMax.text = arguments?.getFloat("high").toString()
-        binding.textViewUpdated.text = arguments?.getLong("date").toString()
+        binding.textViewUpdated.text = lastUpdate.toString()
     }
 }
