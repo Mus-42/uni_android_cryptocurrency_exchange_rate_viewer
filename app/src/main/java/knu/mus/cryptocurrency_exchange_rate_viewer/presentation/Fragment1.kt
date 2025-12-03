@@ -64,6 +64,7 @@ class Fragment1 : Fragment() {
         }
 
         exchangeRatesViewModel.refreshRates();
+
         recyclerView.layoutManager = LinearLayoutManager(context)
 
         recyclerView.adapter = adapter

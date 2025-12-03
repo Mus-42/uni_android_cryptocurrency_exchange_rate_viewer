@@ -46,6 +46,7 @@ class MainActivity : AppCompatActivity() {
         val fragment2 = Fragment2()
         val bundle = Bundle()
         bundle.putString("name", coinItem.shortName)
+        bundle.putString("url", coinItem.imageUrl)
         bundle.putFloat("price", coinItem.price)
         bundle.putFloat("low", coinItem.priceLow24Hour)
         bundle.putFloat("high", coinItem.priceHigh24Hour)
@@ -54,7 +55,12 @@ class MainActivity : AppCompatActivity() {
         Log.d(TAG, coinItem.priceHigh24Hour.toString())
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(binding.fragmentContainerView.id, fragment2)
+        binding.fragmentContainerView?.id?.let {
+            fragmentTransaction.replace(binding.fragmentContainerView!!.id, fragment2)
+        }
+        binding.fragmentContainerView3?.id?.let {
+            fragmentTransaction.replace(binding.fragmentContainerView3!!.id, fragment2)
+        }
         fragmentTransaction.addToBackStack(null)
 
         fragmentTransaction.commit()
