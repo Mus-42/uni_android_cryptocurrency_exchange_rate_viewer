@@ -12,6 +12,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import knu.mus.cryptocurrency_exchange_rate_viewer.databinding.ActivityMainBinding
 import knu.mus.cryptocurrency_exchange_rate_viewer.data.ExchangeRatesDataSource
 import knu.mus.cryptocurrency_exchange_rate_viewer.data.ExchangeRatesList
+import knu.mus.cryptocurrency_exchange_rate_viewer.domain.CoinItem
 import knu.mus.cryptocurrency_exchange_rate_viewer.presentation.ExchangeRatesViewModel
 
 @AndroidEntryPoint
@@ -32,9 +33,29 @@ class MainActivity : AppCompatActivity() {
             Log.d(TAG, "exchange rates list: ${it}")
         }
         exchangeRatesViewModel.refreshRates();
+
+
     }
 
     companion object {
         const val TAG = "MainActivity";
+    }
+
+    fun startFragment2(coinItem: CoinItem){
+        val fragment2 = Fragment2()
+        val bundle = Bundle()
+        bundle.putString("name", coinItem.shortName)
+        bundle.putFloat("price", coinItem.price)
+        bundle.putFloat("low", coinItem.priceLow24Hour)
+        bundle.putFloat("high", coinItem.priceHigh24Hour)
+        bundle.putLong("date", coinItem.lastUpdate)
+        fragment2.arguments = bundle
+        Log.d(TAG, coinItem.priceHigh24Hour.toString())
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(binding.fragmentContainerView.id, fragment2)
+        fragmentTransaction.addToBackStack(null)
+
+        fragmentTransaction.commit()
     }
 }

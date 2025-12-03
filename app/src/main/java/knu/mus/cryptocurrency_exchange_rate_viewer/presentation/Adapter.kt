@@ -1,5 +1,6 @@
 package knu.mus.cryptocurrency_exchange_rate_viewer.presentation
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -52,10 +53,15 @@ class Adapter(private val dataSet: Array<CoinItem>) :
         viewHolder.exchangeRate.text = coinItem.price.toString()
         viewHolder.date.text = coinItem.lastUpdate.toString()
         viewHolder.cardView.setOnClickListener {
+            Log.d(TAG, coinItem.shortName)
             itemsInteractionListener?.onClick(coinItem)
         }
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     override fun getItemCount() = dataSet.size
+
+    companion object {
+        const val TAG = "Adapter";
+    }
 }

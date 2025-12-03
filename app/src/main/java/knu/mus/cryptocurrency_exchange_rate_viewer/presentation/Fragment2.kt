@@ -6,11 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import knu.mus.cryptocurrency_exchange_rate_viewer.R
-
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
+import knu.mus.cryptocurrency_exchange_rate_viewer.databinding.Fragment1Binding
+import knu.mus.cryptocurrency_exchange_rate_viewer.databinding.Fragment2Binding
 class Fragment2 : Fragment() {
+
+    private var _binding: Fragment2Binding? = null
+
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,6 +22,21 @@ class Fragment2 : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_2, container, false)
+        _binding = Fragment2Binding.inflate(inflater, container, false)
+        val view = binding.root
+        return view
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        binding.textViewName.text = arguments?.getString("name")
+        binding.textViewPrice.text = arguments?.getFloat("price").toString()
+        binding.textViewMin.text = arguments?.getFloat("low").toString()
+        binding.textViewMax.text = arguments?.getFloat("high").toString()
+        binding.textViewUpdated.text = arguments?.getLong("date").toString()
     }
 }

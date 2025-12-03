@@ -8,10 +8,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import knu.mus.cryptocurrency_exchange_rate_viewer.R
+import knu.mus.cryptocurrency_exchange_rate_viewer.databinding.Fragment1Binding
 import knu.mus.cryptocurrency_exchange_rate_viewer.domain.CoinItem
 import knu.mus.cryptocurrency_exchange_rate_viewer.domain.ListItem
 
 class Fragment1 : Fragment() {
+
+    private var _binding: Fragment1Binding? = null
+
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,8 +26,14 @@ class Fragment1 : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_1, container, false)
+        _binding = Fragment1Binding.inflate(inflater, container, false)
+        val view = binding.root
+        return view
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -41,11 +52,18 @@ class Fragment1 : Fragment() {
             )
         ))
 
-        val recyclerView: RecyclerView =view.findViewById(R.id.RecyclerView)
+        val recyclerView: RecyclerView = binding.RecyclerView
 
         recyclerView.layoutManager = LinearLayoutManager(context)
 
         recyclerView.adapter = adapter
+
+        adapter.itemsInteractionListener = object : Adapter.ItemsInteractionListener {
+            override fun onClick(coinItem: CoinItem) {
+                (activity as MainActivity).startFragment2(coinItem)
+
+            }
+        }
     }
 
 }

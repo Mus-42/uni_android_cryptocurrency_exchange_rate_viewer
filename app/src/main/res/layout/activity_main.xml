@@ -9,7 +9,7 @@
 
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragmentContainerView9"
+        android:id="@+id/fragmentContainerView"
         android:name="knu.mus.cryptocurrency_exchange_rate_viewer.presentation.Fragment1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
