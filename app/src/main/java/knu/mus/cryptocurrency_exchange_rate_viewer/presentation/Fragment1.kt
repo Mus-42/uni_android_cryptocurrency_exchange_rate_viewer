@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import knu.mus.cryptocurrency_exchange_rate_viewer.R
+import knu.mus.cryptocurrency_exchange_rate_viewer.domain.CoinItem
 import knu.mus.cryptocurrency_exchange_rate_viewer.domain.ListItem
 
 class Fragment1 : Fragment() {
@@ -27,7 +28,18 @@ class Fragment1 : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = Adapter(arrayOf(ListItem("BTC","https://www.cryptocompare.com/media/37746251/btc.png",1.0,"tomorrow")))
+        val adapter = Adapter(arrayOf(
+            CoinItem(
+                "BTC",
+                "Bitcoin",
+                "https://www.cryptocompare.com/media/37746251/btc.png",
+                1.0F,
+                2.0F,
+                0.0F,
+
+                123
+            )
+        ))
 
         val recyclerView: RecyclerView =view.findViewById(R.id.RecyclerView)
 

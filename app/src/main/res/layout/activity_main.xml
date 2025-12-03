@@ -7,10 +7,12 @@
     android:layout_height="match_parent"
     tools:context=".presentation.MainActivity">
 
+
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView9"
         android:name="knu.mus.cryptocurrency_exchange_rate_viewer.presentation.Fragment1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        tools:layout="@layout/fragment_1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

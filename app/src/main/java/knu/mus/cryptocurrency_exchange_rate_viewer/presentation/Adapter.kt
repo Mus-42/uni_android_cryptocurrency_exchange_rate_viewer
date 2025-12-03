@@ -1,21 +1,28 @@
 package knu.mus.cryptocurrency_exchange_rate_viewer.presentation
 
-import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.annotation.RequiresApi
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import knu.mus.cryptocurrency_exchange_rate_viewer.R
-import knu.mus.cryptocurrency_exchange_rate_viewer.domain.ListItem
+import knu.mus.cryptocurrency_exchange_rate_viewer.domain.CoinItem
 
-class Adapter(private val dataSet: Array<ListItem>) :
+class Adapter(private val dataSet: Array<CoinItem>) :
     RecyclerView.Adapter<Adapter.ViewHolder>() {
 
+    interface ItemsInteractionListener {
+        fun onClick(coinItem: CoinItem)
+    }
+
+    var itemsInteractionListener: ItemsInteractionListener? = null
+
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+
+        val cardView = view.findViewById<CardView>(R.id.cardViewCoinItem)
 
         val image = view.findViewById<ImageView>(R.id.ImageView)
         val cur = view.findViewById<TextView>(R.id.textViewCur)
@@ -29,7 +36,7 @@ class Adapter(private val dataSet: Array<ListItem>) :
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         // Create a new view, which defines the UI of the list item
         val view = LayoutInflater.from(viewGroup.context)
-            .inflate(R.layout.list_item, viewGroup, false)
+            .inflate(R.layout.coin_item, viewGroup, false)
 
         return ViewHolder(view)
     }
@@ -39,11 +46,14 @@ class Adapter(private val dataSet: Array<ListItem>) :
 
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
-        val listItem = dataSet[position]
-        Picasso.get().load(listItem.url).into(viewHolder.image);
-        viewHolder.cur.text = listItem.currency
-        viewHolder.exchangeRate.text = listItem.exchange_rate.toString()
-        viewHolder.date.text = listItem.date
+        val coinItem = dataSet[position]
+        Picasso.get().load(coinItem.imageUrl).into(viewHolder.image)
+        viewHolder.cur.text = coinItem.shortName
+        viewHolder.exchangeRate.text = coinItem.price.toString()
+        viewHolder.date.text = coinItem.lastUpdate.toString()
+        viewHolder.cardView.setOnClickListener {
+            itemsInteractionListener?.onClick(coinItem)
+        }
     }
 
     // Return the size of your dataset (invoked by the layout manager)

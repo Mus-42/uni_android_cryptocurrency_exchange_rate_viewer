@@ -25,6 +25,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        setContentView(binding.root)
+
         // dummy example to check that it works
         exchangeRatesViewModel.exchangeRates.observe(this) {
             Log.d(TAG, "exchange rates list: ${it}")

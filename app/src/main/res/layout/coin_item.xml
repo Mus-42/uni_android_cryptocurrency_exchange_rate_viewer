@@ -6,6 +6,7 @@
     android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewCoinItem"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,6 +20,7 @@
                 android:id="@+id/ImageView"
                 android:layout_width="75dp"
                 android:layout_height="75dp"
+                android:contentDescription="TODO"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:srcCompat="@tools:sample/avatars" />
