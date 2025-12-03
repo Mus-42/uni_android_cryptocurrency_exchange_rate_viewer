@@ -1,11 +1,13 @@
 package knu.mus.cryptocurrency_exchange_rate_viewer.presentation
 
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import knu.mus.cryptocurrency_exchange_rate_viewer.data.ExchangeRatesDataSource
 import knu.mus.cryptocurrency_exchange_rate_viewer.domain.CoinItem
 import knu.mus.cryptocurrency_exchange_rate_viewer.domain.Repository
@@ -17,15 +19,16 @@ class ExchangeRatesViewModel @Inject constructor(
     // TODO cache in db
     private val dataSource: ExchangeRatesDataSource = ExchangeRatesDataSource()
 
-    private val _exchangeRates = MutableLiveData<List<CoinItem>>(listOf())
     val exchangeRates: LiveData<List<CoinItem>>
-        get() = _exchangeRates
+        get() = repository.itemsLiveData
 
-    fun fetchRates() {
-        dataSource.getExchangeRates() {
-            Log.d(TAG, "getExchangeRates -> ${it?.data?.size}")
+    fun refreshRates() {
+        dataSource.getExchangeRates() { rates -> 
+            Log.d(TAG, "getExchangeRates -> ${rates?.data?.size}")
 
-            _exchangeRates.value = it?.data?.mapNotNull{ rawCoin -> rawCoin.toCoinItem() } ?: listOf()
+            viewModelScope.launch {
+                rates?.data?.mapNotNull{ it.toCoinItem() }?.forEach { repository.addItem(it) }
+            }
         }
     }
 

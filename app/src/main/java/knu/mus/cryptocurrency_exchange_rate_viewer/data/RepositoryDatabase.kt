@@ -39,5 +39,9 @@ class RepositoryDataBase @Inject constructor(
     override suspend fun changeItem(item: CoinItem) {
         dao.changeItem(item.toCoinEntity())
     }
+
+    companion object {
+        const val TAG = "RepoDB";
+    }
 }
 

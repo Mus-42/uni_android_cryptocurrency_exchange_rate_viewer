@@ -53,6 +53,7 @@ dependencies {
     implementation(libs.androidx.recyclerview)
     implementation(libs.androidx.cardview)
     implementation(libs.androidx.fragment)
+    implementation(libs.androidx.viewmodelscope)
 
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter.gson)

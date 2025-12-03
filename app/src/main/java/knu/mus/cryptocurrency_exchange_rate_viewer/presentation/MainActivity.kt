@@ -26,10 +26,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         // dummy example to check that it works
-        exchangeRatesViewModel.fetchRates();
         exchangeRatesViewModel.exchangeRates.observe(this) {
             Log.d(TAG, "exchange rates list: ${it}")
         }
+        exchangeRatesViewModel.refreshRates();
     }
 
     companion object {
