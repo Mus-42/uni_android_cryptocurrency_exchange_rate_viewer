@@ -10,7 +10,7 @@ import androidx.room.Update
 
 @Dao
 public interface CoinItemDao {
-    @Query("SELECT * FROM coins_table")
+    @Query("SELECT * FROM coins_table ORDER BY price DESC")
     fun getEntities(): LiveData<List<CoinEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

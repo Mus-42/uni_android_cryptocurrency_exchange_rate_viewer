@@ -37,7 +37,6 @@ class ExchangeRatesDataSource {
 
 
     companion object {
-        const val TAG = "EXRTData";
+        const val TAG = "EXRTData"
     }
 }
-

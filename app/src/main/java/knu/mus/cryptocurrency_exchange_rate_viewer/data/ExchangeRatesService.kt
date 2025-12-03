@@ -15,20 +15,17 @@ data class Coin(
     @SerializedName("CoinInfo")
     val info: CoinInfo,
     @SerializedName("RAW")
-    val rawExchangeRates: RawExchangeRates?,
+    val rawExchangeRates: RawExchangeRatesWrapper?,
 ) {
     fun toCoinItem() : CoinItem? {
-        if (this.rawExchangeRates == null)
-            return null;
-
         return CoinItem(
             shortName = this.info.name,
             fullName = this.info.fullName,
             imageUrl = this.info.imageUrl,
-            price = this.rawExchangeRates.price,
-            priceHigh24Hour = this.rawExchangeRates.high24Hour,
-            priceLow24Hour = this.rawExchangeRates.low24Hour,
-            lastUpdate = this.rawExchangeRates.lastUpdate,
+            price = this.rawExchangeRates?.usd?.price ?: return null,
+            priceHigh24Hour = this.rawExchangeRates?.usd?.high24Hour ?: return null,
+            priceLow24Hour = this.rawExchangeRates?.usd?.low24Hour ?: return null,
+            lastUpdate = this.rawExchangeRates?.usd?.lastUpdate ?: return null,
         )
     }
 }
@@ -41,6 +38,11 @@ data class CoinInfo(
     @SerializedName("ImageUrl")
     val imageUrl: String,
     // TODO rest of the fields
+)
+
+data class RawExchangeRatesWrapper(
+    @SerializedName("USD")
+    var usd: RawExchangeRates?,
 )
 
 data class RawExchangeRates(
