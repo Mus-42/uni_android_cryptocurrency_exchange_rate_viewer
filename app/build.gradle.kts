@@ -60,6 +60,9 @@ dependencies {
     implementation(libs.picasso)
 
     implementation(libs.hilt)
+    implementation(libs.androidx.legacy.support.v4)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.androidx.fragment.ktx)
     ksp(libs.hilt.compiler)
 
     implementation (libs.room)

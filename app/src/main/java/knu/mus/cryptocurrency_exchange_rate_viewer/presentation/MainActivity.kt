@@ -17,7 +17,8 @@ import knu.mus.cryptocurrency_exchange_rate_viewer.presentation.ExchangeRatesVie
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    val exchangeRatesViewModel by viewModels<ExchangeRatesViewModel>()
+
+    //val exchangeRatesViewModel by viewModels<ExchangeRatesViewModel>()
 
     private val binding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
@@ -29,10 +30,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // dummy example to check that it works
-        exchangeRatesViewModel.exchangeRates.observe(this) {
-            Log.d(TAG, "exchange rates list: ${it}")
-        }
-        exchangeRatesViewModel.refreshRates();
+        //exchangeRatesViewModel.exchangeRates.observe(this) {
+        //    Log.d(TAG, "exchange rates list: ${it}")
+       // }
+        //exchangeRatesViewModel.refreshRates();
 
 
     }
