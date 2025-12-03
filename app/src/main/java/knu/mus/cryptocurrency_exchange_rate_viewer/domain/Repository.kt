@@ -6,6 +6,7 @@ interface Repository {
     val itemsLiveData: LiveData<List<CoinItem>>
 
     suspend fun addItem(item: CoinItem)
+    suspend fun addItems(items: List<CoinItem>)
     suspend fun removeItem(item: CoinItem)
     suspend fun changeItem(item: CoinItem)
 }

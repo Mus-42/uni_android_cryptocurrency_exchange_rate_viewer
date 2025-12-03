@@ -25,7 +25,7 @@ class ExchangeRatesViewModel @Inject constructor(
             Log.d(TAG, "getExchangeRates -> ${rates?.data?.size}")
 
             viewModelScope.launch {
-                rates?.data?.mapNotNull{ it.toCoinItem() }?.forEach { repository.addItem(it) }
+                rates?.data?.mapNotNull{ it.toCoinItem() }?.let{ repository.addItems(it) }
             }
         }
     }

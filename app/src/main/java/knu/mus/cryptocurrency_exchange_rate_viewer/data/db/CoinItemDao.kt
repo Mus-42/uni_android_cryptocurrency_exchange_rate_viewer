@@ -16,6 +16,9 @@ public interface CoinItemDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addItem(item: CoinEntity)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun addItems(items: List<CoinEntity>)
+
     @Delete
     suspend fun removeItem(item: CoinEntity)
 

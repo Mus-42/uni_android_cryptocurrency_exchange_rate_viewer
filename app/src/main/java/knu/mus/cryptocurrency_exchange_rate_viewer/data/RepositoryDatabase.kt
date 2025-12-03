@@ -32,6 +32,10 @@ class RepositoryDataBase @Inject constructor(
         dao.addItem(item.toCoinEntity())
     }
 
+    override suspend fun addItems(items: List<CoinItem>) {
+        dao.addItems(items.map{ it.toCoinEntity()})
+    }
+
     override suspend fun removeItem(item: CoinItem) {
         dao.removeItem(item.toCoinEntity())
     }
