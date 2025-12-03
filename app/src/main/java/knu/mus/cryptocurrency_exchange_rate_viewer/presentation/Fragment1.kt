@@ -52,18 +52,7 @@ class Fragment1 : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = Adapter(arrayOf(
-            CoinItem(
-                "BTC",
-                "Bitcoin",
-                "https://www.cryptocompare.com/media/37746251/btc.png",
-                1.0F,
-                2.0F,
-                0.0F,
-
-                123
-            )
-        ))
+        val adapter = Adapter()
 
 
         val recyclerView: RecyclerView = binding.RecyclerView
@@ -71,11 +60,10 @@ class Fragment1 : Fragment() {
         exchangeRatesViewModel.exchangeRates.observe(viewLifecycleOwner) {
             Log.d(TAG, "exchange rates list: ${it}")
 
-            //TODO fix
-            //adapter.submitList(it)
+            adapter.submitList(it)
         }
-        exchangeRatesViewModel.refreshRates();
 
+        exchangeRatesViewModel.refreshRates();
         recyclerView.layoutManager = LinearLayoutManager(context)
 
         recyclerView.adapter = adapter
@@ -91,6 +79,6 @@ class Fragment1 : Fragment() {
     }
 
     companion object {
-        const val TAG = "MainActivity";
+        const val TAG = "Fragment1";
     }
 }

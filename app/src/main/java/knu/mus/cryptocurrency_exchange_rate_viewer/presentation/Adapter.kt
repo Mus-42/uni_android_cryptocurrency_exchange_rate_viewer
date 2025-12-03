@@ -7,13 +7,14 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import knu.mus.cryptocurrency_exchange_rate_viewer.R
 import knu.mus.cryptocurrency_exchange_rate_viewer.domain.CoinItem
 
-class Adapter(private val dataSet: Array<CoinItem>) :
-    RecyclerView.Adapter<Adapter.ViewHolder>() {
+class Adapter() :
+    ListAdapter<CoinItem, Adapter.ViewHolder>(CoinDiffUtil()) {
 
     interface ItemsInteractionListener {
         fun onClick(coinItem: CoinItem)
@@ -47,8 +48,8 @@ class Adapter(private val dataSet: Array<CoinItem>) :
 
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
-        val coinItem = dataSet[position]
-        Picasso.get().load(coinItem.imageUrl).into(viewHolder.image)
+        val coinItem = getItem(position)
+        Picasso.get().load("https://www.cryptocompare.com${coinItem.imageUrl}").into(viewHolder.image)
         viewHolder.cur.text = coinItem.shortName
         viewHolder.exchangeRate.text = coinItem.price.toString()
         viewHolder.date.text = coinItem.lastUpdate.toString()
@@ -58,10 +59,7 @@ class Adapter(private val dataSet: Array<CoinItem>) :
         }
     }
 
-    // Return the size of your dataset (invoked by the layout manager)
-    override fun getItemCount() = dataSet.size
-
     companion object {
-        const val TAG = "Adapter";
+        const val TAG = "Adapter"
     }
 }
