@@ -5,7 +5,6 @@ import javax.inject.Inject
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import knu.mus.cryptocurrency_exchange_rate_viewer.data.ExchangeRatesDataSource
@@ -16,14 +15,13 @@ import knu.mus.cryptocurrency_exchange_rate_viewer.domain.Repository
 class ExchangeRatesViewModel @Inject constructor(
     private val repository: Repository,
 ) : ViewModel() {
-    // TODO cache in db
     private val dataSource: ExchangeRatesDataSource = ExchangeRatesDataSource()
 
     val exchangeRates: LiveData<List<CoinItem>>
         get() = repository.itemsLiveData
 
     fun refreshRates() {
-        dataSource.getExchangeRates() { rates -> 
+        dataSource.getExchangeRates { rates ->
             Log.d(TAG, "getExchangeRates -> ${rates?.data?.size}")
 
             viewModelScope.launch {
@@ -33,7 +31,7 @@ class ExchangeRatesViewModel @Inject constructor(
     }
 
     companion object {
-        const val TAG = "EXRTViewModel";
+        const val TAG = "EXRTViewModel"
     }
 }
 

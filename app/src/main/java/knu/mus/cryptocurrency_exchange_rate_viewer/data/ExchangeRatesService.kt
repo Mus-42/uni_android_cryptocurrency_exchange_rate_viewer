@@ -28,6 +28,7 @@ data class Coin(
             price = this.rawExchangeRates.price,
             priceHigh24Hour = this.rawExchangeRates.high24Hour,
             priceLow24Hour = this.rawExchangeRates.low24Hour,
+            lastUpdate = this.rawExchangeRates.lastUpdate,
         )
     }
 }
@@ -50,6 +51,8 @@ data class RawExchangeRates(
     var high24Hour: Float,
     @SerializedName("LOW24HOUR")
     var low24Hour: Float,
+    @SerializedName("LASTUPDATE")
+    var lastUpdate: Long,
 )
 
 interface ExchangeRatesService {

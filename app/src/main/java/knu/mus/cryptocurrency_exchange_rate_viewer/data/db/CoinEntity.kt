@@ -21,6 +21,8 @@ data class CoinEntity(
     var priceHigh24Hour: Float,
     @ColumnInfo(name = "low_24")
     var priceLow24Hour: Float,
+    @ColumnInfo(name = "last_update")
+    var lastUpdate: Long,
 ) {
     fun toCoinItem() : CoinItem {
         return CoinItem(
@@ -30,6 +32,7 @@ data class CoinEntity(
             price = this.price,
             priceHigh24Hour = this.priceHigh24Hour,
             priceLow24Hour = this.priceLow24Hour,
+            lastUpdate = this.lastUpdate,
         )
     }
 }
