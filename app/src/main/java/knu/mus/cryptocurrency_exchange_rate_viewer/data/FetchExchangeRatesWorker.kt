@@ -13,19 +13,16 @@ import knu.mus.cryptocurrency_exchange_rate_viewer.domain.Repository
 @HiltWorker
 class FetchExchangeRatesWorker @AssistedInject constructor(
     @Assisted context: Context, 
-    @Assisted params: WorkerParameters
+    @Assisted params: WorkerParameters,
+    private val repository: Repository,
 ) : CoroutineWorker(context, params) {
-    // This should be in a constructor but for some reason it fails deep inside WorkerFactory
-    // TODO write custom worker factory and move that to constructor???
-    @Inject
-    lateinit var repository: Repository
-
     private val dataSource: ExchangeRatesDataSource = ExchangeRatesDataSource()
 
     override suspend fun doWork(): Result {
         val exchangeRates = dataSource.getExchangeRates() ?: return Result.failure();
         Log.d(TAG, "getExchangeRates -> ${exchangeRates.data.size}")
-        exchangeRates.data.mapNotNull{ it.toCoinItem() }.let{ repository.addItems(it) }
+        val coinItems = exchangeRates.data.mapNotNull{ it.toCoinItem() };
+        repository.addItems(coinItems);
         return Result.success()
     }
 
