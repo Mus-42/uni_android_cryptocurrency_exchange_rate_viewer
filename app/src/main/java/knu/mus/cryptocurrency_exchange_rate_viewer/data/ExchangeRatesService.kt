@@ -59,8 +59,8 @@ data class RawExchangeRates(
 
 interface ExchangeRatesService {
     @GET("data/top/totalvolfull?")
-    fun getExchangeRatesList(
+    suspend fun getExchangeRatesList(
         @Query("limit") limit: Int = 30,
         @Query("tsym") tsym: String = "USD",
-    ): Call<ExchangeRatesList>
+    ): ExchangeRatesList
 }

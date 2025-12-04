@@ -15,20 +15,9 @@ import knu.mus.cryptocurrency_exchange_rate_viewer.domain.Repository
 class ExchangeRatesViewModel @Inject constructor(
     private val repository: Repository,
 ) : ViewModel() {
-    private val dataSource: ExchangeRatesDataSource = ExchangeRatesDataSource()
 
     val exchangeRates: LiveData<List<CoinItem>>
         get() = repository.itemsLiveData
-
-    fun refreshRates() {
-        dataSource.getExchangeRates { rates ->
-            Log.d(TAG, "getExchangeRates -> ${rates?.data?.size}")
-
-            viewModelScope.launch {
-                rates?.data?.mapNotNull{ it.toCoinItem() }?.let{ repository.addItems(it) }
-            }
-        }
-    }
 
     companion object {
         const val TAG = "EXRTViewModel"

@@ -10,6 +10,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 class ExchangeRatesDataSource {
     private val BASE_URL = "https://min-api.cryptocompare.com"
 
+    init {
+        Log.d(TAG, "created data source")
+    }
+
     private var retrofit: Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
@@ -17,22 +21,15 @@ class ExchangeRatesDataSource {
 
     private var exchangeRatesService = retrofit.create(ExchangeRatesService::class.java)
 
-    fun getExchangeRates(resultCallback: (ExchangeRatesList?) -> Unit){
-        val call = exchangeRatesService.getExchangeRatesList()
-
-        // TODO handle errors in some other way
-        call?.enqueue(object: Callback<ExchangeRatesList?>{
-            override fun onResponse(call: Call<ExchangeRatesList?>, response: Response<ExchangeRatesList?>) {
-                val exchangeRates = response.body()
-                Log.d(TAG, "fetched data: ${exchangeRates?.data?.size}")
-                resultCallback(exchangeRates)
-            }
-
-            override fun onFailure(call: Call<ExchangeRatesList?>, t: Throwable) {
-                Log.d(TAG, "failed to fetch data")
-                resultCallback(null)
-            }
-        })
+    suspend fun getExchangeRates() : ExchangeRatesList? {
+        try {
+            val exchangeRates = exchangeRatesService.getExchangeRatesList()
+            Log.d(TAG, "fetched data: ${exchangeRates?.data?.size}")
+            return exchangeRates;
+        } catch (e: Exception) {
+            Log.d(TAG, "failed to fetch data: ${e}")
+            return null
+        }
     }
 
 

@@ -54,15 +54,20 @@ dependencies {
     implementation(libs.androidx.cardview)
     implementation(libs.androidx.fragment)
     implementation(libs.androidx.viewmodelscope)
+    implementation(libs.androidx.legacy.support.v4)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.androidx.fragment.ktx)
+    implementation(libs.androidx.work.runtime)
+    implementation(libs.androidx.work.runtime.ktx)
+    implementation(libs.androidx.hilt.common)
+    implementation(libs.androidx.hilt.work)
+    ksp(libs.androidx.hilt.compiler)
 
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter.gson)
     implementation(libs.picasso)
 
     implementation(libs.hilt)
-    implementation(libs.androidx.legacy.support.v4)
-    implementation(libs.androidx.lifecycle.livedata.ktx)
-    implementation(libs.androidx.fragment.ktx)
     ksp(libs.hilt.compiler)
 
     implementation (libs.room)
