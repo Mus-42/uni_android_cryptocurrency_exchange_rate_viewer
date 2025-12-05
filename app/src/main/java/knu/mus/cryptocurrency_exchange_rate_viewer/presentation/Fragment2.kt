@@ -1,6 +1,7 @@
 package knu.mus.cryptocurrency_exchange_rate_viewer.presentation
 
 import android.os.Bundle
+import android.transition.TransitionInflater
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -19,12 +20,15 @@ class Fragment2 : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val inflater = TransitionInflater.from(requireContext())
+        enterTransition = inflater.inflateTransition(R.transition.slide_right)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         _binding = Fragment2Binding.inflate(inflater, container, false)
         val view = binding.root
         return view
@@ -40,10 +44,10 @@ class Fragment2 : Fragment() {
             val lastUpdate = df.format(java.util.Date(requireArguments().getLong("date") * 1000))
 
             Picasso.get().load("https://www.cryptocompare.com${arguments?.getString("url")}").into(binding.imageView)
-            binding.textViewName.text = arguments?.getString("name")
-            binding.textViewPrice.text = arguments?.getFloat("price").toString()
-            binding.textViewMin.text = arguments?.getFloat("low").toString()
-            binding.textViewMax.text = arguments?.getFloat("high").toString()
+            binding.coinName.text = arguments?.getString("name")
+            binding.textViewPrice.text = String.format(requireContext().getString(R.string.detailed_price), arguments?.getFloat("price").toString())
+            binding.textViewMin.text = String.format(requireContext().getString(R.string.detailed_min), arguments?.getFloat("low").toString())
+            binding.textViewMax.text = String.format(requireContext().getString(R.string.detailed_max), arguments?.getFloat("high").toString())
             binding.textViewUpdated.text = lastUpdate.toString()
     }
 }
