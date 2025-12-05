@@ -1,5 +1,6 @@
 package knu.mus.cryptocurrency_exchange_rate_viewer.presentation
 
+import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat.getString
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.timepicker.TimeFormat
@@ -15,7 +17,7 @@ import knu.mus.cryptocurrency_exchange_rate_viewer.R
 import knu.mus.cryptocurrency_exchange_rate_viewer.domain.CoinItem
 import java.text.DateFormat
 
-class Adapter() :
+class Adapter(private val context: Context) :
     ListAdapter<CoinItem, Adapter.ViewHolder>(CoinDiffUtil()) {
 
     interface ItemsInteractionListener {
@@ -58,8 +60,8 @@ class Adapter() :
 
         Picasso.get().load("https://www.cryptocompare.com${coinItem.imageUrl}").into(viewHolder.image)
         viewHolder.cur.text = coinItem.shortName
-        viewHolder.exchangeRate.text = coinItem.price.toString()
-        viewHolder.date.text = lastUpdate.toString()
+        viewHolder.exchangeRate.text =String.format(context.getString(R.string.exchangeRate), coinItem.price.toString())
+        viewHolder.date.text = String.format(context.getString(R.string.date), lastUpdate.toString())
         viewHolder.cardView.setOnClickListener {
             Log.d(TAG, coinItem.shortName)
             itemsInteractionListener?.onClick(coinItem)

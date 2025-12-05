@@ -52,7 +52,7 @@ class Fragment1 : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = Adapter()
+        val adapter = Adapter(requireContext())
 
 
         val recyclerView: RecyclerView = binding.RecyclerView

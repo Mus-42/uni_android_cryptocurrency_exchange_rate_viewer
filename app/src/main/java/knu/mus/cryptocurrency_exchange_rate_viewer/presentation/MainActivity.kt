@@ -68,6 +68,7 @@ class MainActivity : AppCompatActivity() {
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
         binding.fragmentContainerView?.id?.let {
+
             fragmentTransaction.replace(binding.fragmentContainerView!!.id, fragment2)
             fragmentTransaction.addToBackStack("THE_BIG_ONE")
         }

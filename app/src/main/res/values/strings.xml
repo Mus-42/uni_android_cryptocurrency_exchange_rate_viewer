@@ -1,5 +1,16 @@
 <resources>
     <string name="app_name">Cryptocurrency Exchange Rate Viewer</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="exchangeRate">$%s</string>
+    <string name="date">Last updated: %s</string>
+    <string name="currencyimage">CurrencyImage</string>
+    <string name="currency" />
+    <string name="detailed_updated">updated</string>
+    <string name="detailed_max">$%s</string>
+    <string name="detailed_min">$%s</string>
+    <string name="detailed_price">$%s</string>
+    <string name="detailed_const_date">Last updated:</string>
+    <string name="detailed_const_max">max 24 hours:</string>
+    <string name="detailed_const_min">min 24 hours:</string>
+    <string name="detailed_const_price">Coin price:</string>
 </resources>
